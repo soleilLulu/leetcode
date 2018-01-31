@@ -35,10 +35,23 @@ public class _169MajorityElement {
 //    }
 	
 	//思想：对于一个排序好的数组，第n/2的位置的元素一定是存在的这个众数
+//	public int majorityElement(int[] nums) {
+//		
+//		Arrays.sort(nums);
+//		return nums[nums.length/2];
+//	}
+	
+	//第三种：
 	public int majorityElement(int[] nums) {
+		int res = nums[0];
+		int count = 1;
 		
-		Arrays.sort(nums);
-		return nums[nums.length/2];
+		for(int i=1;i<nums.length;i++){
+			if(nums[i] == res) count ++;
+			else if(count >1) count --;
+			else res = nums[i];
+		}
+		return res;
 	}
     public static void mian(String[] args){
     	_169MajorityElement test = new _169MajorityElement();
