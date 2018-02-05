@@ -1,6 +1,8 @@
 package Array;
 
 import java.util.Arrays;
+import java.util.Set;
+import java.util.TreeSet;
 
 /*
 * @author:soleil
@@ -49,26 +51,42 @@ public class _414ThirdMaximumNumber {
 //    }
 	
 	//线性时间解法
-	public int thirdMax(int[] nums) {
-		Integer max1=null;
-		Integer max2=null;
-		Integer max3=null;
-		
-		for(Integer num : nums){
-			if(num.equals(max1) || num.equals(max2) || num.equals(max3)) continue;
-			if(max1 == null || num > max1 ){
-				max3 = max2;
-				max2 = max1;
-				max1 = num;
-			}else if( max2 == null || num > max2){
-				max3 = max2;
-				max2 = num;
-			}else if( max3 == null || num > max3){
-				max3 = num;
-			}
-		}
-		return max3 == null ? max1 : max3;
-	}
+//	public int thirdMax(int[] nums) {
+//		Integer max1=null;
+//		Integer max2=null;
+//		Integer max3=null;
+//		
+//		for(Integer num : nums){
+//			if(num.equals(max1) || num.equals(max2) || num.equals(max3)) continue;
+//			if(max1 == null || num > max1 ){
+//				max3 = max2;
+//				max2 = max1;
+//				max1 = num;
+//			}else if( max2 == null || num > max2){
+//				max3 = max2;
+//				max2 = num;
+//			}else if( max3 == null || num > max3){
+//				max3 = num;
+//			}
+//		}
+//		return max3 == null ? max1 : max3;
+//	}
+	
+	//TreeSet解法
+    public final int N = 3;
+    public int thirdMax(int[] nums) {
+        if (nums.length == 0) return 0;
+
+        TreeSet<Integer> set = new TreeSet<Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            if (set.contains(nums[i])) continue;
+            if (set.size() < N || nums[i] > set.first()) {
+                if (set.size() == N) set.remove(set.first());
+                set.add(nums[i]);
+            }
+        }
+        return set.size() == N ? set.first() : set.last();
+    }
     
     public static void main(String[] args){
     	_414ThirdMaximumNumber test = new _414ThirdMaximumNumber();
